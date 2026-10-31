@@ -8,6 +8,7 @@ import PanelPregunta from "./PanelPregunta";
 import LineaAgente from "./LineaAgente";
 import TarjetasZonas from "./TarjetasZonas";
 import { useT } from "../i18n/useT";
+import { focoCalor } from "../efectos/focoCalor";
 
 export default function SeccionDiagnostico({ capas, diag }) {
   const t = useT();
@@ -16,8 +17,8 @@ export default function SeccionDiagnostico({ capas, diag }) {
   const zonas = d?.zonas ?? [];
 
   return (
-    <section className="seccion" id="diagnostico" aria-labelledby="t-diag">
-      <div className="seccion-cab">
+    <section className="seccion" id="diagnostico" aria-labelledby="t-diag" {...focoCalor}>
+      <div className="seccion-cab aparece">
         <span className="seccion-num">01</span>
         <div>
           <h2 id="t-diag">{t.diag.titulo}</h2>
@@ -25,7 +26,7 @@ export default function SeccionDiagnostico({ capas, diag }) {
         </div>
       </div>
 
-      <div className="diag-grid">
+      <div className="diag-grid aparece" data-retraso="120">
         {!capas.datos && capas.estado !== "error" ? <Esqueleto imagen /> : <VisorCapas capas={capas} zonas={zonas} zonaActiva={zonaActiva} onZona={setZonaActiva} />}
 
         <div className="diag-panel">
@@ -40,7 +41,7 @@ export default function SeccionDiagnostico({ capas, diag }) {
           {diag.estado === "error" && <ErrorReintento error={diag.error} onReintentar={diag.reintentarEnDemo} />}
 
           {d && (
-            <div className="respuesta">
+            <div className="respuesta aparece">
               <div className="respuesta-cab">
                 <span className="pregunta-hecha">“{diag.pregunta}”</span>
                 <FuenteBadge fuente={d.fuente} />

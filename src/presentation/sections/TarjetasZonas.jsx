@@ -8,10 +8,11 @@ export default function TarjetasZonas({ zonas, zonaActiva, onZona }) {
     <div className="zonas-bloque">
       <h3 className="subtitulo">{t.diag.zonasTitulo}</h3>
       <div className="zonas">
-        {zonas.map((z) => (
+        {zonas.map((z, i) => (
           <article
             key={z.nombre}
-            className={`zona ${zonaActiva === z.nombre ? "activa" : ""}`}
+            className={`zona aparece ${zonaActiva === z.nombre ? "activa" : ""}`}
+            data-retraso={i * 110}
             onMouseEnter={() => onZona(z.nombre)}
             onFocus={() => onZona(z.nombre)}
             tabIndex={0}

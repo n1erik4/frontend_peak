@@ -17,18 +17,17 @@ const ICONOS = [
     <path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z" />
     <path d="M9 4v14M15 6v14" />
   </svg>,
-  // Las causas
-  <svg key="causas" viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="12" r="4" />
-    <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" />
+  // Islas de calor: termómetro
+  <svg key="islas" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M10 13.5V5a2 2 0 1 1 4 0v8.5a4 4 0 1 1-4 0Z" />
+    <path d="M12 9v6" />
   </svg>,
-  // Tu calle
-  <svg key="calle" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M4 8h3l2-3h6l2 3h3v11H4Z" />
-    <circle cx="12" cy="13" r="3.5" />
+  // Cómo nos afecta: ciudad
+  <svg key="afecta" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 21h18M5 21V10l5-3v14M10 21V4l6 3v14M16 21v-8l3-2v10" />
   </svg>,
 ];
-const DESTINOS = ["#diagnostico", "#diagnostico", "#calle"];
+const DESTINOS = ["#diagnostico", "#islas", "#afecta"];
 
 /** Portada: panel con el planeta que viaja a Oaxaca + mensaje para la gente. */
 export default function Portada() {

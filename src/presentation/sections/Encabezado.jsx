@@ -2,6 +2,8 @@ import { useApp } from "../../application/hooks/useApp";
 import { IDIOMAS } from "../../application/context";
 import { useT } from "../i18n/useT";
 import PapelPicado from "../components/PapelPicado";
+import { cambiarTemaConCirculo } from "../efectos/transicionTema";
+import { useSeccionActiva } from "../efectos/useSeccionActiva";
 
 /** Selector de idioma: globo + pista con indicador que se desliza. */
 function SelectorIdioma() {
@@ -39,7 +41,7 @@ function InterruptorCielo() {
       aria-checked={noche}
       aria-label={etiqueta}
       title={etiqueta}
-      onClick={() => setTema(noche ? "claro" : "oscuro")}
+      onClick={(e) => cambiarTemaConCirculo(e.currentTarget, noche ? "claro" : "oscuro", setTema)}
     >
       <span className="cielo-estrellas" aria-hidden="true">
         <i />
@@ -60,6 +62,23 @@ function InterruptorCielo() {
   );
 }
 
+const SECCIONES = ["inicio", "diagnostico", "lugar", "islas"];
+
+/** Menú con la sección activa marcada por una "mancha de calor" debajo. */
+function Navegacion() {
+  const t = useT();
+  const activa = useSeccionActiva(SECCIONES);
+  return (
+    <nav className="nav" aria-label={t.encabezado.menu}>
+      {SECCIONES.map((id) => (
+        <a key={id} href={`#${id}`} className={activa === id ? "activa" : ""} aria-current={activa === id ? "true" : undefined}>
+          {t.encabezado.nav[id]}
+        </a>
+      ))}
+    </nav>
+  );
+}
+
 export default function Encabezado() {
   return (
     <header className="encabezado">
@@ -71,11 +90,14 @@ export default function Encabezado() {
             Sombra <b>Oaxaca</b>
           </span>
         </a>
+        <Navegacion />
         <div className="ajustes">
           <SelectorIdioma />
           <InterruptorCielo />
         </div>
       </div>
+      {/* Termómetro: avance de la página con la paleta de los mapas de calor */}
+      <span className="termometro" aria-hidden="true" />
     </header>
   );
 }

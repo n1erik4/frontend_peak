@@ -58,6 +58,9 @@
   --bandera-b-sombra: drop-shadow(0 1px 1px rgba(16, 25, 17, 0.18)) drop-shadow(0 3px 5px rgba(16, 25, 17, 0.06));
 
   --vidrio: rgba(251, 252, 251, 0.82);
+  /* Paleta térmica de los mapas de calor (frío → caliente) */
+  --termico: linear-gradient(90deg, #313695, #4575b4, #74add1, #abd9e9, #fee090, #fdae61, #f46d43, #d73027);
+  --foco-rgb: 228, 87, 46;
   --alto-encabezado: 128px;
   --r: 22px;
   --r-s: 12px;
@@ -127,6 +130,7 @@
   --bandera-b-sombra: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
 
   --vidrio: rgba(11, 10, 9, 0.8);
+  --foco-rgb: 255, 122, 26;
   color-scheme: dark;
 }
 
@@ -424,9 +428,16 @@ button, input, select { font: inherit; color: inherit; }
 @keyframes rueda { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
 @media (max-width: 920px) { .desliza { display: none; } }
 
+/* ===== Apariciones al hacer scroll (como "calentándose": de borroso a nítido) ===== */
+.aparece {
+  opacity: 0; transform: translateY(28px); filter: blur(6px);
+  transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.7s ease;
+}
+.aparece.visible { opacity: 1; transform: none; filter: none; }
+
 /* ===== Secciones ===== */
-main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem) 3rem; }
-.seccion { margin-top: 3.5rem; scroll-margin-top: calc(var(--alto-encabezado) + 1rem); }
+main { padding: 0 max(clamp(1rem, 4vw, 2.5rem), calc((100% - var(--ancho)) / 2 + 2.5rem)) 3rem; }
+.seccion { position: relative; z-index: 1; margin-top: 3.5rem; scroll-margin-top: calc(var(--alto-encabezado) + 1rem); }
 .seccion-cab { display: flex; gap: 1.2rem; align-items: center; margin-bottom: 1.8rem; }
 .seccion-num {
   flex: none; width: 56px; height: 56px; border-radius: 50%; background: var(--grad); color: var(--sobre-acento);
@@ -446,7 +457,7 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5r
 .btn-borde:hover { background: var(--acento-bg); }
 
 /* Tarjeta base */
-.respuesta, .zona, .campo-pregunta, .visor, .foto-drop, .selector select {
+.respuesta, .zona, .campo-pregunta, .visor {
   background: var(--superficie); border: 1px solid var(--linea);
   box-shadow: 0 10px 30px var(--sombra);
 }
@@ -551,7 +562,7 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5r
 /* ===== Analiza un lugar (mapa) ===== */
 .lugar-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 2rem; align-items: start; }
 @media (max-width: 920px) { .lugar-grid { grid-template-columns: 1fr; } }
-.mapa-wrap { margin: 0; position: sticky; top: 5rem; }
+.mapa-wrap { margin: 0; position: sticky; top: calc(var(--alto-encabezado) + 1rem); }
 @media (max-width: 920px) { .mapa-wrap { position: static; } }
 .mapa-interactivo { position: relative; isolation: isolate; z-index: 0; border-radius: var(--r); overflow: hidden; border: 1px solid var(--linea); box-shadow: 0 10px 30px var(--sombra); }
 .mapa-leaflet { height: min(620px, 70vh); min-height: 380px; width: 100%; cursor: crosshair; background: var(--acento-bg); }
@@ -596,3 +607,257 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5r
   100% { box-shadow: 0 0 0 0 rgba(var(--pulso-rgb), 0); }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* ===================================================================== */
+/* ===== Efectos inspirados en grupocontrerasmm.com, versión térmica ===== */
+/* ===================================================================== */
+
+/* --- Menú del encabezado: la sección activa lleva una franja térmica --- */
+.nav { display: flex; align-items: center; gap: 0.4rem; }
+.nav a {
+  position: relative; padding: 0.45rem 0.85rem; border-radius: 999px;
+  font-size: 0.92rem; font-weight: 600; color: var(--suave); text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+.nav a::after {
+  content: ""; position: absolute; left: 0.85rem; right: 0.85rem; bottom: 0.1rem; height: 3px; border-radius: 3px;
+  background: var(--termico); transform: scaleX(0); transform-origin: left; transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.nav a:hover { color: var(--acento-fuerte); background: var(--acento-bg); }
+.nav a:hover::after { transform: scaleX(0.4); }
+.nav a.activa { color: var(--tinta); }
+.nav a.activa::after { transform: scaleX(1); }
+@media (max-width: 960px) { .nav { display: none; } }
+
+/* --- Termómetro: avance de la página; el color de la punta indica qué tan "caliente" vas --- */
+.termometro {
+  position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; pointer-events: none;
+  background: var(--termico);
+  clip-path: inset(0 calc((1 - var(--progreso, 0)) * 100%) 0 0);
+}
+
+/* --- Portada fija que se encoge y se "derrite" en calima mientras la hoja sube --- */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .portada {
+    position: sticky; top: var(--alto-encabezado); z-index: 0; transform-origin: 50% 35%;
+    transform: scale(calc(1 - var(--barrido, 0) * 0.07));
+    opacity: calc(1 - var(--barrido, 0) * 1.4);
+    filter: blur(calc(var(--barrido, 0) * 5px)) saturate(calc(1 + var(--barrido, 0) * 0.5));
+    will-change: transform, opacity, filter;
+  }
+  .pie { margin-top: 0; }
+}
+
+/* --- La hoja que barre hacia arriba --- */
+.hoja {
+  position: relative; z-index: 1; overflow-x: clip;
+  border-radius: 44px 44px 0 0; padding-top: 1.5rem;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 59px, var(--patron) 59px 60px),
+    repeating-linear-gradient(-45deg, transparent 0 59px, var(--patron) 59px 60px),
+    var(--fondo);
+  box-shadow: 0 -30px 60px -24px var(--sombra);
+}
+/* Frente de calor: la orilla de la hoja con la paleta térmica */
+.hoja::before {
+  content: ""; position: absolute; top: 0; left: 50%; width: min(72%, 920px); height: 5px; border-radius: 5px;
+  transform: translate(-50%, -50%); background: var(--termico);
+  box-shadow: 0 0 28px 4px rgba(253, 174, 97, 0.45);
+}
+/* Calima que sube delante del frente */
+.hoja::after {
+  content: ""; position: absolute; left: 0; right: 0; top: -110px; height: 110px; pointer-events: none;
+  background: radial-gradient(55% 100% at 50% 100%, rgba(var(--foco-rgb), calc(0.28 * var(--barrido, 0))), transparent 70%);
+}
+
+/* --- Islas flotantes de fondo: una de calor y una de vegetación --- */
+.isla { position: absolute; width: 480px; height: 480px; border-radius: 50%; filter: blur(70px); opacity: 0.32; pointer-events: none; z-index: 0; }
+.isla-calor { top: 6%; right: -140px; background: radial-gradient(circle, #f46d43, #fdae61 45%, transparent 70%); animation: flotar-1 18s ease-in-out infinite; }
+.isla-verde { top: 52%; left: -160px; background: radial-gradient(circle, #1a9850, #91cf60 45%, transparent 70%); animation: flotar-2 22s ease-in-out infinite; }
+@keyframes flotar-1 { 0%, 100% { transform: translate(0) scale(1); } 33% { transform: translate(40px, -30px) scale(1.1); } 66% { transform: translate(-30px, 20px) scale(0.95); } }
+@keyframes flotar-2 { 0%, 100% { transform: translate(0) scale(1); } 33% { transform: translate(-40px, 30px) scale(1.05); } 66% { transform: translate(30px, -25px) scale(1.1); } }
+
+/* --- Punto de calor que sigue al mouse --- */
+.seccion::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: var(--r);
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(var(--foco-rgb), 0.16), rgba(var(--foco-rgb), 0.05) 40%, transparent 70%);
+  opacity: var(--foco, 0); transition: opacity 0.35s;
+}
+
+/* --- Entrada de los textos de la portada --- */
+.portada-texto > :not(.portada-esfera) { animation: entrar 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.portada-texto > :nth-child(2) { animation-delay: 0.1s; }
+.portada-texto > :nth-child(3) { animation-delay: 0.2s; }
+.portada-texto > :nth-child(4) { animation-delay: 0.35s; }
+.portada-texto > :nth-child(5) { animation-delay: 0.45s; }
+.portada-texto > :nth-child(6) { animation-delay: 0.6s; }
+@keyframes entrar { from { opacity: 0; transform: translateY(26px); filter: blur(6px); } }
+
+/* Las tarjetas de zona conservan la aparición y su efecto de hover */
+.zona.aparece { transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.7s ease, border-color 0.15s, box-shadow 0.15s; }
+
+/* --- Cambio de tema: el tema nuevo se expande en círculo desde el botón --- */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: tema-circulo 0.6s ease-in-out forwards; }
+@keyframes tema-circulo {
+  from { clip-path: circle(0 at var(--vt-x) var(--vt-y)); }
+  to { clip-path: circle(var(--vt-r) at var(--vt-x) var(--vt-y)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aparece { opacity: 1; transform: none; filter: none; }
+}
+
+/* ===================================================================== */
+/* ===== Islas de calor ===== */
+/* ===================================================================== */
+.islas h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; color: var(--acento-fuerte); }
+.islas-intro { display: grid; grid-template-columns: minmax(300px, 0.9fr) 1.3fr; gap: 2.5rem; align-items: center; }
+@media (max-width: 960px) { .islas-intro { grid-template-columns: 1fr; } }
+.islas-texto { display: flex; flex-direction: column; gap: 0.9rem; }
+.islas-texto p:not(.antetitulo) { color: var(--suave); font-size: 1.08rem; }
+
+/* --- Comparador vista normal / térmica --- */
+.comparador { margin: 0; }
+.comparador-vista {
+  position: relative; aspect-ratio: 800 / 420; border-radius: var(--r); overflow: hidden;
+  box-shadow: 0 24px 50px var(--sombra); border: 1px solid var(--linea); background: var(--superficie);
+}
+.comparador-vista .escena { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.comparador-termica { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--corte)); }
+.comparador-linea {
+  position: absolute; top: 0; bottom: 0; left: var(--corte); width: 3px; transform: translateX(-1.5px);
+  background: #fff; box-shadow: 0 0 12px rgba(0, 0, 0, 0.35); pointer-events: none;
+}
+.comparador-linea i {
+  position: absolute; top: 50%; left: 50%; width: 42px; height: 42px; transform: translate(-50%, -50%);
+  border-radius: 50%; background: #fff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+.comparador-linea i::before, .comparador-linea i::after {
+  content: ""; position: absolute; top: 50%; width: 0; height: 0; transform: translateY(-50%);
+  border: 6px solid transparent;
+}
+.comparador-linea i::before { left: 6px; border-right-color: #4575b4; }
+.comparador-linea i::after { right: 6px; border-left-color: #d73027; }
+.comparador-chip {
+  position: absolute; top: 0.9rem; padding: 0.3rem 0.85rem; border-radius: 999px; pointer-events: none;
+  font-size: 0.8rem; font-weight: 800; background: rgba(255, 255, 255, 0.92); color: #101911;
+}
+.comparador-chip.izq { left: 0.9rem; }
+.comparador-chip.der { right: 0.9rem; background: rgba(49, 54, 149, 0.88); color: #fee090; }
+.comparador-vista input[type="range"] {
+  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize;
+}
+.comparador-vista:focus-within .comparador-linea i { outline: 3px solid var(--acento); outline-offset: 3px; }
+.comparador figcaption {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.3rem 0.8rem;
+  margin-top: 0.9rem; font-size: 0.85rem; color: var(--suave); font-weight: 600;
+}
+.escala-termica { grid-column: 1 / -1; height: 10px; border-radius: 5px; background: var(--termico); }
+.comparador-pista { text-align: center; color: var(--tenue); font-weight: 500; }
+
+/* Colores de la escena: vista normal */
+.escena-normal .escena-cielo { fill: url(#cielo-dia); }
+.escena-normal .escena-sol { fill: #ffd54f; }
+.escena-normal .cerros path { fill: #b9d7a8; }
+.escena-normal .muro { fill: #ead9c2; }
+.escena-normal .muro-2 { fill: #d8c3a8; }
+.escena-normal .lamina { fill: #8f9aa3; }
+.escena-normal .techo-plano { fill: #7b6a5d; }
+.escena-normal .ventana { fill: #8cb9da; }
+.escena-normal .pasto { fill: #8bc34a; }
+.escena-normal .tronco { fill: #7a5230; }
+.escena-normal .copa { fill: #3f8f4a; }
+.escena-normal .copa-2 { fill: #5aa95f; }
+.escena-normal .sombra { fill: rgba(0, 0, 0, 0.2); }
+.escena-normal .banqueta { fill: #d8d0c5; }
+.escena-normal .asfalto { fill: #4b4b52; }
+.escena-normal .raya { fill: #f4f4f4; }
+.escena-normal .auto { fill: #d6533f; }
+.escena-normal .auto-vidrio { fill: #cbe6f7; }
+.escena-normal .rueda { fill: #222; }
+.escena-normal .persona { fill: #2f3b52; }
+
+/* Colores de la escena: vista térmica (paleta de los mapas de calor) */
+.escena-termica .escena-cielo { fill: #2a2d6e; }
+.escena-termica .escena-sol { fill: #fee090; }
+.escena-termica .cerros path { fill: #74add1; }
+.escena-termica .muro { fill: #fdae61; }
+.escena-termica .muro-2 { fill: #f46d43; }
+.escena-termica .lamina { fill: #a50026; }
+.escena-termica .techo-plano { fill: #d73027; }
+.escena-termica .ventana { fill: #fee090; }
+.escena-termica .pasto { fill: #74add1; }
+.escena-termica .tronco { fill: #abd9e9; }
+.escena-termica .copa { fill: #4575b4; }
+.escena-termica .copa-2 { fill: #74add1; }
+.escena-termica .sombra { fill: #313695; }
+.escena-termica .banqueta { fill: #fdae61; }
+.escena-termica .asfalto { fill: #d73027; }
+.escena-termica .raya { fill: #f46d43; }
+.escena-termica .auto { fill: #f46d43; }
+.escena-termica .auto-vidrio { fill: #fee090; }
+.escena-termica .rueda { fill: #a50026; }
+.escena-termica .persona { fill: #fee090; }
+.escena .etiquetas rect { fill: rgba(16, 25, 17, 0.72); }
+.escena .etiquetas text { fill: #fff; font: 700 14px "Figtree Variable", system-ui, sans-serif; }
+
+/* --- Perfil de la isla de calor --- */
+.islas-perfil {
+  margin-top: 3rem; padding: clamp(1.2rem, 3vw, 2rem); border-radius: var(--r);
+  background: var(--superficie); border: 1px solid var(--linea); box-shadow: 0 16px 40px var(--sombra);
+  display: grid; grid-template-columns: minmax(240px, 0.7fr) 1.6fr; gap: 2rem; align-items: center;
+}
+@media (max-width: 960px) { .islas-perfil { grid-template-columns: 1fr; } }
+.islas-perfil-texto { display: flex; flex-direction: column; gap: 0.7rem; }
+.islas-perfil-texto p { color: var(--suave); }
+.perfil { width: 100%; height: auto; display: block; overflow: visible; }
+.perfil .silueta { fill: var(--suave); opacity: 0.45; }
+.perfil .silueta-arbol { fill: var(--acento); opacity: 0.6; }
+.perfil-area { opacity: 0.9; }
+.perfil-curva { fill: none; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.perfil-marca { opacity: 0; }
+.perfil-marca text { fill: var(--tinta); font: 800 15px "Figtree Variable", system-ui, sans-serif; }
+.perfil-marca circle { stroke: var(--superficie); stroke-width: 3; }
+.perfil-zona { fill: var(--suave); font: 600 14px "Figtree Variable", system-ui, sans-serif; }
+.islas-perfil.visible .perfil-curva { animation: trazar-perfil 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards; }
+.islas-perfil.visible .perfil-marca { animation: aparecer 0.5s ease-out 1.8s forwards; }
+@keyframes trazar-perfil { to { stroke-dashoffset: 0; } }
+
+/* --- ¿Cómo nos afecta? --- */
+.islas-subtitulo { margin: 3.2rem 0 1.3rem; scroll-margin-top: calc(var(--alto-encabezado) + 1.5rem); }
+.afecta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; }
+@media (max-width: 1100px) { .afecta { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .afecta { grid-template-columns: 1fr; } }
+.afecta-tarjeta {
+  position: relative; overflow: hidden; padding: 1.4rem; border-radius: var(--r);
+  background: var(--superficie); border: 1px solid var(--linea); box-shadow: 0 12px 30px var(--sombra);
+  display: flex; flex-direction: column; gap: 0.6rem;
+  transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.7s ease, border-color 0.2s;
+}
+.afecta-tarjeta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--termico); }
+.afecta-tarjeta:hover { border-color: var(--calor-2); }
+.afecta-tarjeta h4 { font-size: 1.15rem; }
+.afecta-tarjeta p { color: var(--suave); font-size: 0.95rem; line-height: 1.5; }
+.afecta-icono {
+  width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center;
+  background: linear-gradient(135deg, #fdae61, #d73027);
+}
+.afecta-noches .afecta-icono { background: linear-gradient(135deg, #74add1, #313695); }
+.afecta-agua .afecta-icono { background: linear-gradient(135deg, #abd9e9, #4575b4); }
+.afecta-aire .afecta-icono { background: linear-gradient(135deg, #fee090, #f46d43); }
+.afecta-icono svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* --- Qué la calienta / qué la refresca --- */
+.balanza { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2.2rem; }
+@media (max-width: 760px) { .balanza { grid-template-columns: 1fr; } }
+.balanza-col { padding: 1.5rem 1.6rem; border-radius: var(--r); border: 1px solid var(--linea); }
+.balanza-col h4 { font-size: 1.15rem; margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.6rem; }
+.balanza-col h4::before { content: ""; width: 14px; height: 14px; border-radius: 50%; }
+.balanza-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.65rem; }
+.balanza-col li { display: flex; gap: 0.7rem; align-items: flex-start; color: var(--suave); }
+.balanza-col li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 0.55rem; border-radius: 50%; }
+.calienta { background: linear-gradient(135deg, rgba(215, 48, 39, 0.1), rgba(253, 174, 97, 0.08)); }
+.calienta h4::before, .calienta li::before { background: #d73027; }
+.refresca { background: linear-gradient(135deg, rgba(69, 117, 180, 0.1), rgba(116, 173, 209, 0.08)); }
+.refresca h4::before, .refresca li::before { background: #4575b4; }
