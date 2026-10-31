@@ -1,7 +1,8 @@
 // Infraestructura: implementación del puerto SombraRepository contra sombra-back.
 import { normalizarCapas } from "../../domain/capas";
 import { normalizarDiagnostico } from "../../domain/diagnostico";
-import { normalizarCalle } from "../../domain/calle";
+import { normalizarLugar } from "../../domain/lugar";
+import { HttpError } from "./httpClient";
 
 /** @returns {import("../../application/ports").SombraRepository} */
 export function crearApiRepository(http) {
@@ -20,12 +21,14 @@ export function crearApiRepository(http) {
       return normalizarDiagnostico(await http.postJson("/api/diagnostico", { pregunta, demo }));
     },
 
-    async evaluarCalle(foto, { zona = "", demo = false } = {}) {
-      const fd = new FormData();
-      fd.append("foto", foto);
-      fd.append("zona", zona);
-      fd.append("demo", String(demo));
-      return normalizarCalle(await http.postForm("/api/calle", fd));
+    async analizarLugar(lat, lon, { demo = false } = {}) {
+      try {
+        return normalizarLugar(await http.postJson("/api/zona", { lat, lon, demo }));
+      } catch (e) {
+        // 422 = el punto está fuera de los Valles Centrales
+        if (e.status === 422) throw new HttpError("fuera_de_zona", 422);
+        throw e;
+      }
     },
   };
 }

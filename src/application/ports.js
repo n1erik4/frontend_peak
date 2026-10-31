@@ -6,7 +6,7 @@
  * @property {() => Promise<{ok: boolean, modelo: string}>} salud
  * @property {() => Promise<{temperaturaUrl: string, vegetacionUrl: string, bbox: number[], fecha: string}>} capas
  * @property {(pregunta: string, opciones?: {demo?: boolean}) => Promise<Object>} diagnosticar
- * @property {(foto: File, opciones?: {zona?: string, demo?: boolean}) => Promise<Object>} evaluarCalle
+ * @property {(lat: number, lon: number, opciones?: {demo?: boolean}) => Promise<Object>} analizarLugar
  */
 
 export {};

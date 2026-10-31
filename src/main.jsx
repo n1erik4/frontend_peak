@@ -6,6 +6,7 @@ import { preferenciasLocales } from "./infrastructure/preferencias";
 import AppProvider from "./application/AppProvider";
 import App from "./presentation/App";
 import "@fontsource-variable/figtree";
+import "leaflet/dist/leaflet.css";
 import "./presentation/styles/global.css";
 
 const { repo, origen } = crearRepository();
