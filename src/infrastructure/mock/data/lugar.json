@@ -1,0 +1,68 @@
+{
+  "lugar": "Centro Histórico de Oaxaca, Oaxaca de Juárez",
+  "punto": {
+    "lat": 17.06,
+    "lon": -96.72
+  },
+  "poligono": [
+    [
+      17.096,
+      -96.756
+    ],
+    [
+      17.096,
+      -96.684
+    ],
+    [
+      17.04,
+      -96.684
+    ],
+    [
+      17.024,
+      -96.692
+    ],
+    [
+      17.024,
+      -96.756
+    ]
+  ],
+  "satelite": {
+    "calor_relativo": 0.74,
+    "vegetacion_relativa": 0.01,
+    "zona_caliente": true,
+    "area_km2": 56.5
+  },
+  "datos": {
+    "t_prom": 17.6,
+    "t_max_prom": 24.8,
+    "dias_sobre_30C": 48
+  },
+  "entorno": null,
+  "pasos": [
+    {
+      "tipo": "vision",
+      "texto": "Ubiqué el punto en las capas MODIS: calor 74 % y vegetación 1 % en la escala de los Valles Centrales. Está dentro de una zona caliente de ~56.5 km²."
+    },
+    {
+      "tipo": "herramienta",
+      "texto": "Consulté NASA POWER (temperatura diaria 2025)"
+    },
+    {
+      "tipo": "herramienta",
+      "texto": "Consulté OpenStreetMap: Centro Histórico de Oaxaca, Oaxaca de Juárez (uso de suelo no disponible)"
+    },
+    {
+      "tipo": "sintesis",
+      "texto": "En Centro Histórico de Oaxaca, Oaxaca de Juárez el calor de superficie está en 74 % y la vegetación en 1 % (escala de los Valles Centrales: 0 % lo más bajo, 100 % lo más alto). En 2025 la máxima promedio fue 24.8 °C con 48 días sobre 30 °C (NASA POWER). El riesgo de calor es alto."
+    }
+  ],
+  "riesgo": "alto",
+  "causa": "Se calienta porque el punto está dentro de un núcleo de calor de unos 56.5 km² según MODIS, hay muy poca vegetación (NDVI bajo).",
+  "recomendaciones": [
+    "Plantar árboles nativos de sombra (huaje, mezquite o fresno) en calles y banquetas.",
+    "Pintar techos de blanco o con material reflejante, sobre todo los de lámina y concreto.",
+    "Crear sombra en paradas, mercados y escuelas con toldos o malla sombra."
+  ],
+  "resumen": "En Centro Histórico de Oaxaca, Oaxaca de Juárez el calor de superficie está en 74 % y la vegetación en 1 % (escala de los Valles Centrales: 0 % lo más bajo, 100 % lo más alto). En 2025 la máxima promedio fue 24.8 °C con 48 días sobre 30 °C (NASA POWER). El riesgo de calor es alto.",
+  "fuente": "cache"
+}

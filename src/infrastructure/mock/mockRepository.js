@@ -1,10 +1,10 @@
 // Infraestructura: mismo puerto que apiRepository, con datos locales y espera simulada.
 import { normalizarCapas } from "../../domain/capas";
 import { normalizarDiagnostico } from "../../domain/diagnostico";
-import { normalizarCalle } from "../../domain/calle";
+import { normalizarLugar } from "../../domain/lugar";
 import capas from "./data/capas.json";
 import diagnostico from "./data/diagnostico.json";
-import calle from "./data/calle.json";
+import lugar from "./data/lugar.json";
 
 const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -23,9 +23,9 @@ export function crearMockRepository({ demoraMs = 2000 } = {}) {
       await esperar(demoraMs);
       return normalizarDiagnostico(diagnostico);
     },
-    async evaluarCalle() {
+    async analizarLugar() {
       await esperar(demoraMs);
-      return normalizarCalle(calle);
+      return normalizarLugar(lugar);
     },
   };
 }

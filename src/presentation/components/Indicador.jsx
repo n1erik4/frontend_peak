@@ -1,13 +1,9 @@
-import { tonoIndicador } from "../../domain/calle";
-import { useT } from "../i18n/useT";
-
-export default function Indicador({ campo, valor }) {
-  const t = useT();
-  const tono = tonoIndicador(campo, valor);
+/** Tarjeta de un indicador. tono: "malo" | "regular" | "bueno" (lo decide el dominio). */
+export default function Indicador({ etiqueta, valor, tono = "regular" }) {
   return (
     <div className={`indicador tono-${tono}`}>
-      <span className="indicador-lbl">{t.calle.indicadores[campo]}</span>
-      <span className="indicador-val">{valor ? t.calle.valores[valor] || valor : "—"}</span>
+      <span className="indicador-lbl">{etiqueta}</span>
+      <span className="indicador-val">{valor ?? "—"}</span>
     </div>
   );
 }
