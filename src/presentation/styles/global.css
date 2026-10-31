@@ -178,7 +178,7 @@ button, input, select { font: inherit; color: inherit; }
 .tema-oscuro .tema-icono:nth-child(2) { color: var(--sobre-acento); }
 .logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.3rem; font-weight: 500; }
 .logo b { font-weight: 800; color: var(--acento); }
-.logo-sol { width: 28px; height: 28px; border-radius: 50%; background: var(--grad); }
+.logo-peak { display: block; width: auto; height: 48px; object-fit: contain; }
 
 .papel-picado { position: absolute; inset: 0 0 auto 0; height: 90px; pointer-events: none; }
 .papel-defs { position: absolute; }

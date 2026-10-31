@@ -32,7 +32,7 @@ export default function Encabezado() {
       <PapelPicado />
       <div className="encabezado-fila">
         <div className="logo">
-          <span className="logo-sol" aria-hidden="true" />
+          <img className="logo-peak" src="/logo-peak.png" alt="Peak" />
           <span>
             Sombra <b>Oaxaca</b>
           </span>

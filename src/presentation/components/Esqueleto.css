@@ -1,0 +1,8 @@
+.esqueleto { width: 100%; min-width: 0; display: grid; gap: 0.8rem; }
+.esqueleto > div { height: 1rem; border-radius: 0.5rem; background: var(--linea); animation: esqueleto-pulso 1.5s ease-in-out infinite alternate; }
+.esqueleto > div:last-child { width: 65%; }
+.esqueleto-imagen > div:last-child { width: 100%; height: auto; aspect-ratio: 1; border-radius: var(--r); }
+.cargando:has(.esqueleto) { flex-wrap: wrap; }
+.cargando .esqueleto { flex-basis: 100%; }
+@keyframes esqueleto-pulso { to { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) { .esqueleto > div { animation: none; } }
