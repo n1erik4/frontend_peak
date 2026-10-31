@@ -5,13 +5,18 @@ export const TEXTOS = {
   es: {
     locale: "es-MX",
     oeste: "O",
-    encabezado: { idioma: "Idioma", aClaro: "Cambiar a modo claro", aOscuro: "Cambiar a modo oscuro" },
+    encabezado: { idioma: "Idioma", tema: "Modo oscuro", aClaro: "Cambiar a modo claro", aOscuro: "Cambiar a modo oscuro" },
     portada: {
-      pildora: "Hackathon · Best Use of Gemma 4",
-      antetitulo: "Islas de calor en los Valles Centrales",
+      antetitulo: "Valles Centrales · Oaxaca",
+      lema: "Encuentra la sombra antes que el calor.",
       descripcion:
-        "Un agente con Gemma 4 que detecta dónde se calienta Oaxaca con imágenes satelitales de la NASA, explica por qué y propone qué hacer, desde la región hasta tu calle.",
-      cta: "Empezar diagnóstico",
+        "Te mostramos qué zonas de Oaxaca se calientan más, por qué sucede y qué acciones sencillas pueden refrescarlas: más árboles, techos claros y sombra para caminar.",
+      puntos: [
+        { titulo: "Mapa del calor", texto: "Mira desde el satélite dónde se acumula el calor." },
+        { titulo: "Las causas", texto: "Entiende por qué una zona se calienta más que otra." },
+        { titulo: "Tu calle", texto: "Toma una foto y recibe ideas para tener más sombra." },
+      ],
+      desliza: "Desliza para explorar",
       repetir: "Repetir animación",
     },
     mapa: {
@@ -95,13 +100,18 @@ export const TEXTOS = {
   en: {
     locale: "en-US",
     oeste: "W",
-    encabezado: { idioma: "Language", aClaro: "Switch to light mode", aOscuro: "Switch to dark mode" },
+    encabezado: { idioma: "Language", tema: "Dark mode", aClaro: "Switch to light mode", aOscuro: "Switch to dark mode" },
     portada: {
-      pildora: "Hackathon · Best Use of Gemma 4",
-      antetitulo: "Heat islands in the Central Valleys",
+      antetitulo: "Central Valleys · Oaxaca",
+      lema: "Find the shade before the heat finds you.",
       descripcion:
-        "A Gemma 4 agent that uses NASA satellite imagery to find where Oaxaca is heating up, explains why, and proposes what to do, from the whole region down to your street.",
-      cta: "Start diagnosis",
+        "See which parts of Oaxaca heat up the most, why it happens, and the simple changes that can cool them down: more trees, lighter roofs and shade to walk in.",
+      puntos: [
+        { titulo: "Heat map", texto: "See from space where the heat builds up." },
+        { titulo: "The causes", texto: "Understand why one area gets hotter than another." },
+        { titulo: "Your street", texto: "Snap a photo and get ideas for more shade." },
+      ],
+      desliza: "Scroll to explore",
       repetir: "Replay animation",
     },
     mapa: {

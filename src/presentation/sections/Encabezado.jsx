@@ -3,73 +3,77 @@ import { IDIOMAS } from "../../application/context";
 import { useT } from "../i18n/useT";
 import PapelPicado from "../components/PapelPicado";
 
-function Sol() {
+/** Selector de idioma: globo + pista con indicador que se desliza. */
+function SelectorIdioma() {
+  const { idioma, setIdioma } = useApp();
+  const t = useT();
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="4.5" />
-      {Array.from({ length: 8 }, (_, i) => (
-        <line key={i} x1="12" y1="2.5" x2="12" y2="5" transform={`rotate(${i * 45} 12 12)`} />
-      ))}
-    </svg>
+    <div className="lengua" role="group" aria-label={t.encabezado.idioma}>
+      <svg className="lengua-globo" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18M12 3c2.8 2.6 2.8 15.4 0 18M12 3c-2.8 2.6-2.8 15.4 0 18" />
+      </svg>
+      <div className="lengua-pista" data-pos={IDIOMAS.indexOf(idioma)}>
+        <span className="lengua-indicador" aria-hidden="true" />
+        {IDIOMAS.map((i) => (
+          <button key={i} type="button" aria-pressed={idioma === i} onClick={() => setIdioma(i)}>
+            {i.toUpperCase()}
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
 
-function Luna() {
+/** Interruptor de tema: cielo de día (sol y nubes) ↔ cielo de noche (luna y estrellas). */
+function InterruptorCielo() {
+  const { tema, setTema } = useApp();
+  const t = useT();
+  const noche = tema === "oscuro";
+  const etiqueta = noche ? t.encabezado.aClaro : t.encabezado.aOscuro;
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" />
-    </svg>
+    <button
+      type="button"
+      className={`cielo ${noche ? "noche" : ""}`}
+      role="switch"
+      aria-checked={noche}
+      aria-label={etiqueta}
+      title={etiqueta}
+      onClick={() => setTema(noche ? "claro" : "oscuro")}
+    >
+      <span className="cielo-estrellas" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+      <span className="cielo-nubes" aria-hidden="true">
+        <i />
+        <i />
+      </span>
+      <span className="astro" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </span>
+    </button>
   );
 }
 
 export default function Encabezado() {
-  const { idioma, setIdioma, tema, setTema } = useApp();
-  const t = useT();
-  const oscuro = tema === "oscuro";
-
   return (
     <header className="encabezado">
       <PapelPicado />
       <div className="encabezado-fila">
-        <div className="logo">
+        <a className="logo" href="#inicio">
           <span className="logo-sol" aria-hidden="true" />
           <span>
             Sombra <b>Oaxaca</b>
           </span>
-        </div>
-
+        </a>
         <div className="ajustes">
-          <div className="idiomas" role="group" aria-label={t.encabezado.idioma}>
-            {IDIOMAS.map((i) => (
-              <button
-                key={i}
-                type="button"
-                className={idioma === i ? "activo" : ""}
-                aria-pressed={idioma === i}
-                onClick={() => setIdioma(i)}
-              >
-                {i.toUpperCase()}
-              </button>
-            ))}
-          </div>
-
-          <button
-            type="button"
-            className={`tema ${oscuro ? "tema-oscuro" : ""}`}
-            role="switch"
-            aria-checked={oscuro}
-            aria-label={oscuro ? t.encabezado.aClaro : t.encabezado.aOscuro}
-            title={oscuro ? t.encabezado.aClaro : t.encabezado.aOscuro}
-            onClick={() => setTema(oscuro ? "claro" : "oscuro")}
-          >
-            <span className="tema-icono">
-              <Sol />
-            </span>
-            <span className="tema-icono">
-              <Luna />
-            </span>
-            <span className="tema-bola" aria-hidden="true" />
-          </button>
+          <SelectorIdioma />
+          <InterruptorCielo />
         </div>
       </div>
     </header>

@@ -11,7 +11,7 @@ export default function SeccionCalle({ calle, zonas = [] }) {
   const ocupado = calle.estado === "cargando";
 
   return (
-    <section className="seccion" aria-labelledby="t-calle">
+    <section className="seccion" id="calle" aria-labelledby="t-calle">
       <div className="seccion-cab">
         <span className="seccion-num">02</span>
         <div>

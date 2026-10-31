@@ -17,7 +17,7 @@ export default function App() {
   return (
     <>
       <Encabezado />
-      <Portada modelo={inicio.modelo} />
+      <Portada />
 
       <main>
         <SeccionDiagnostico capas={inicio.capas} diag={diag} />
