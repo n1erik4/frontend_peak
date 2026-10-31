@@ -5,37 +5,25 @@ import Cargando from "../components/Cargando";
 import ErrorReintento from "../components/ErrorReintento";
 import FuenteBadge from "../components/FuenteBadge";
 import Indicador from "../components/Indicador";
-import MapaInteractivo from "../components/MapaInteractivo";
+
 import LineaAgente from "./LineaAgente";
 import { useT } from "../i18n/useT";
 
-export default function SeccionLugar({ capas, lugar, zonasRegion }) {
+export default function SeccionLugar({ lugar }) {
   const t = useT();
   const r = lugar.resultado;
 
   return (
     <section className="seccion" id="lugar" aria-labelledby="t-lugar">
       <div className="seccion-cab">
-        <span className="seccion-num">02</span>
+
         <div>
           <h2 id="t-lugar">{t.lugar.titulo}</h2>
-          <p>{t.lugar.descripcion}</p>
+
         </div>
       </div>
 
-      <div className="lugar-grid">
-        {capas.estado === "error" ? (
-          <div className="visor-vacio">{t.visor.errorCapas}</div>
-        ) : (
-          <MapaInteractivo
-            capas={capas.datos}
-            punto={lugar.punto}
-            resultado={r}
-            zonasRegion={zonasRegion}
-            onSeleccion={lugar.seleccionar}
-          />
-        )}
-
+      <div className="detalle-lugar">
         <div className="lugar-panel">
           {lugar.fuera && (
             <p className="aviso" role="status">
