@@ -58,7 +58,7 @@
   --bandera-b-sombra: drop-shadow(0 1px 1px rgba(16, 25, 17, 0.18)) drop-shadow(0 3px 5px rgba(16, 25, 17, 0.06));
 
   --vidrio: rgba(251, 252, 251, 0.82);
-  --alto-encabezado: 112px;
+  --alto-encabezado: 128px;
   --r: 22px;
   --r-s: 12px;
   --ancho: 1320px;
@@ -162,7 +162,7 @@ button, input, select { font: inherit; color: inherit; }
 }
 .logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.25rem; font-weight: 500; color: var(--tinta); text-decoration: none; }
 .logo b { font-weight: 800; color: var(--acento); }
-.logo-sol { width: 26px; height: 26px; border-radius: 50%; background: var(--grad); box-shadow: 0 0 0 4px var(--acento-bg); }
+.logo-peak { display: block; width: auto; height: 48px; object-fit: contain; }
 .ajustes { display: flex; align-items: center; gap: 0.9rem; }
 
 /* --- Idioma: globo + pista con indicador deslizante --- */

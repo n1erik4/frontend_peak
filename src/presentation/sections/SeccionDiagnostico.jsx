@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Esqueleto from "../components/Esqueleto";
 import Cargando from "../components/Cargando";
 import ErrorReintento from "../components/ErrorReintento";
 import FuenteBadge from "../components/FuenteBadge";
@@ -25,10 +26,10 @@ export default function SeccionDiagnostico({ capas, diag }) {
       </div>
 
       <div className="diag-grid">
-        <VisorCapas capas={capas} zonas={zonas} zonaActiva={zonaActiva} onZona={setZonaActiva} />
+        {!capas.datos && capas.estado !== "error" ? <Esqueleto imagen /> : <VisorCapas capas={capas} zonas={zonas} zonaActiva={zonaActiva} onZona={setZonaActiva} />}
 
         <div className="diag-panel">
-          <PanelPregunta onPreguntar={diag.preguntar} ocupado={diag.estado === "cargando"} />
+          <PanelPregunta espera={diag.espera} onPreguntar={diag.preguntar} ocupado={diag.estado === "cargando"} />
 
           {diag.estado === "inactivo" && (
             <p className="pista-vacia">{t.diag.vacio}</p>
