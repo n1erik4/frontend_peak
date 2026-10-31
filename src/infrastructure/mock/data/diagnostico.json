@@ -1,0 +1,26 @@
+{
+  "pasos": [
+    { "tipo": "vision", "texto": "Comparé la temperatura de superficie con el NDVI: el centro de Oaxaca y Santa Lucía del Camino muestran colores cálidos intensos donde casi no hay vegetación." },
+    { "tipo": "herramienta", "texto": "Consulté NASA POWER para Centro de Oaxaca." },
+    { "tipo": "herramienta", "texto": "Consulté NASA POWER para Santa Lucía del Camino." },
+    { "tipo": "sintesis", "texto": "Las zonas más calientes coinciden con mancha urbana densa y poca cobertura verde; se priorizan para sombra y reforestación." }
+  ],
+  "zonas": [
+    {
+      "nombre": "Centro de Oaxaca", "lat": 17.06, "lon": -96.72,
+      "causa": "Alta densidad de concreto y asfalto, poca vegetación (NDVI bajo).",
+      "datos": { "t_max_prom": 31.2, "dias_sobre_30C": 120 },
+      "accion": "Arbolado en banquetas y techos claros en edificios públicos.",
+      "prioridad": 1
+    },
+    {
+      "nombre": "Santa Lucía del Camino", "lat": 17.07, "lon": -96.68,
+      "causa": "Crecimiento urbano reciente con techos de lámina y pocos espacios verdes.",
+      "datos": { "t_max_prom": 30.6, "dias_sobre_30C": 104 },
+      "accion": "Corredores verdes y pintura reflejante en techos de lámina.",
+      "prioridad": 2
+    }
+  ],
+  "resumen": "El calor se concentra en la zona urbana central de los Valles Centrales, donde la vegetación es escasa. Centro de Oaxaca supera los 30 °C de máxima promedio durante unos 120 días al año. Reforestar banquetas y aclarar techos son las acciones de mayor impacto y menor costo.",
+  "fuente": "cache"
+}

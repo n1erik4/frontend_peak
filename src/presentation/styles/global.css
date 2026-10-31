@@ -1,0 +1,516 @@
+/* ===== Tokens ===== */
+/* Tema claro: paleta del diseño de Canva (verde) */
+:root {
+  --acento-fuerte: #1e3d1b;
+  --acento: #58998a;
+  --acento-bg: #eef5f2;
+  --acento-bg-2: #e2efe9;
+  --grad: linear-gradient(120deg, var(--acento-fuerte), var(--acento));
+  --sobre-acento: #ffffff;
+
+  --tinta: #101911;
+  --suave: #4a5a4d;
+  --tenue: #7e8c81;
+  --fondo: #fbfcfb;
+  --superficie: #ffffff;
+  --linea: #dfe8e3;
+  --patron: rgba(88, 153, 138, 0.06);
+  --sombra: rgba(16, 25, 17, 0.08);
+  --cache-bg: #eef0ee;
+  --anillo: rgba(255, 255, 255, 0.9);
+  --deco-ini: rgba(30, 61, 27, 0.15);
+  --deco-ini-2: rgba(88, 153, 138, 0.2);
+  --radar-pista: rgba(88, 153, 138, 0.3);
+  --pulso-rgb: 30, 61, 27;
+  --etiqueta-capa-bg: rgba(255, 255, 255, 0.92);
+
+  /* Calor: solo para datos de temperatura y riesgo */
+  --calor: #e4572e;
+  --calor-2: #f29e4c;
+  --calor-bg: #fdf0ea;
+  --cielo: #3a7bbf;
+  --cielo-bg: #eaf2fb;
+  --malo: #d64545;
+  --regular: #c98a12;
+  --bueno: #2f8f5b;
+  --malo-bg: #fdecec;
+  --regular-bg: #fdf5e1;
+  --bueno-bg: #e3f3ea;
+  --error-borde: #f3c4c4;
+  --error-txt: #7a1f1f;
+
+  /* Mapa de Oaxaca */
+  --mapa-c1: #3f7a68;
+  --mapa-c2: #2a5a45;
+  --mapa-c3: #1e3d1b;
+  --mapa-e1: #f4faf7;
+  --mapa-e2: #cfe6dc;
+  --mapa-punto: rgba(88, 153, 138, 0.35);
+  --mapa-marca: #1e3d1b;
+  --mapa-valles-bg: rgba(30, 61, 27, 0.18);
+
+  /* Papel picado */
+  --cordel: rgba(16, 25, 17, 0.45);
+  --bandera-a: rgba(16, 25, 17, 0.5);
+  --bandera-a-pliegue: rgba(16, 25, 17, 0.6);
+  --bandera-b: rgba(255, 255, 255, 0.82);
+  --bandera-b-borde: rgba(16, 25, 17, 0.28);
+  --bandera-b-sombra: drop-shadow(0 1px 1.5px rgba(16, 25, 17, 0.35)) drop-shadow(0 4px 6px rgba(16, 25, 17, 0.12));
+
+  --r: 22px;
+  --r-s: 12px;
+  --ancho: 1320px;
+
+  font-family: "Figtree Variable", "Proxima Nova", "Segoe UI", system-ui, sans-serif;
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--tinta);
+  background: var(--fondo);
+  color-scheme: light;
+}
+
+/* Tema oscuro: predominan el negro y el naranja */
+:root[data-tema="oscuro"] {
+  --acento-fuerte: #ffa24a;
+  --acento: #ff7a1a;
+  --acento-bg: rgba(255, 122, 26, 0.12);
+  --acento-bg-2: rgba(255, 122, 26, 0.2);
+  --grad: linear-gradient(120deg, #ff5a00, #ffa53d);
+  --sobre-acento: #140a03;
+
+  --tinta: #f7efe6;
+  --suave: #cdbfae;
+  --tenue: #8f8173;
+  --fondo: #0b0a09;
+  --superficie: #17130f;
+  --linea: #2e251d;
+  --patron: rgba(255, 122, 26, 0.05);
+  --sombra: rgba(0, 0, 0, 0.45);
+  --cache-bg: #241d17;
+  --anillo: rgba(255, 122, 26, 0.85);
+  --deco-ini: rgba(255, 90, 0, 0.12);
+  --deco-ini-2: rgba(255, 122, 26, 0.15);
+  --radar-pista: rgba(255, 122, 26, 0.25);
+  --pulso-rgb: 255, 122, 26;
+  --etiqueta-capa-bg: rgba(23, 19, 15, 0.9);
+
+  --calor: #ff6b3d;
+  --calor-2: #ffb347;
+  --calor-bg: rgba(255, 107, 61, 0.12);
+  --cielo: #7cc0ff;
+  --cielo-bg: rgba(124, 192, 255, 0.1);
+  --malo: #ff6b6b;
+  --regular: #ffc145;
+  --bueno: #5fd38d;
+  --malo-bg: rgba(255, 107, 107, 0.12);
+  --regular-bg: rgba(255, 193, 69, 0.12);
+  --bueno-bg: rgba(95, 211, 141, 0.12);
+  --error-borde: rgba(255, 107, 107, 0.4);
+  --error-txt: #ffb4b4;
+
+  --mapa-c1: #2b1c10;
+  --mapa-c2: #170f09;
+  --mapa-c3: #080605;
+  --mapa-e1: #ffb562;
+  --mapa-e2: #ff7a1a;
+  --mapa-punto: rgba(20, 10, 3, 0.35);
+  --mapa-marca: #140a03;
+  --mapa-valles-bg: rgba(20, 10, 3, 0.28);
+
+  --cordel: rgba(255, 255, 255, 0.35);
+  --bandera-a: rgba(255, 122, 26, 0.55);
+  --bandera-a-pliegue: rgba(255, 122, 26, 0.7);
+  --bandera-b: rgba(255, 255, 255, 0.62);
+  --bandera-b-borde: rgba(255, 255, 255, 0.25);
+  --bandera-b-sombra: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  /* Patrón de rombos sutil, como el fondo del diseño */
+  background:
+    repeating-linear-gradient(45deg, transparent 0 59px, var(--patron) 59px 60px),
+    repeating-linear-gradient(-45deg, transparent 0 59px, var(--patron) 59px 60px),
+    var(--fondo);
+  transition: background-color 0.3s;
+}
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3, h4 { line-height: 1.1; letter-spacing: -0.015em; }
+code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 0.8em; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--acento); outline-offset: 3px; border-radius: 6px; }
+::selection { background: var(--acento); color: var(--sobre-acento); }
+.texto-grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* ===== Encabezado con papel picado ===== */
+.encabezado { position: relative; padding-top: clamp(62px, 5.2vw, 80px); overflow: hidden; }
+.encabezado-fila {
+  position: relative; z-index: 2; max-width: var(--ancho); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  padding: 0.5rem clamp(1rem, 4vw, 2.5rem) 0;
+}
+.ajustes { display: flex; align-items: center; gap: 0.8rem; }
+.idiomas { display: flex; padding: 3px; border-radius: 999px; background: var(--superficie); border: 1px solid var(--linea); }
+.idiomas button {
+  border: 0; background: transparent; cursor: pointer; border-radius: 999px;
+  padding: 0.3rem 0.75rem; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em; color: var(--suave);
+  transition: background 0.2s, color 0.2s;
+}
+.idiomas button.activo { background: var(--grad); color: var(--sobre-acento); }
+.tema {
+  position: relative; width: 64px; height: 34px; padding: 0 6px; border-radius: 999px; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--superficie); border: 1px solid var(--linea);
+}
+.tema-icono { width: 20px; height: 20px; display: grid; place-items: center; z-index: 1; color: var(--tenue); transition: color 0.25s; }
+.tema-icono svg { width: 16px; height: 16px; fill: currentColor; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.tema-bola {
+  position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--grad); transition: transform 0.3s cubic-bezier(0.4, 1.4, 0.6, 1);
+}
+.tema .tema-icono:first-child { color: var(--sobre-acento); }
+.tema-oscuro .tema-bola { transform: translateX(30px); }
+.tema-oscuro .tema-icono:first-child { color: var(--tenue); }
+.tema-oscuro .tema-icono:nth-child(2) { color: var(--sobre-acento); }
+.logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.3rem; font-weight: 500; }
+.logo b { font-weight: 800; color: var(--acento); }
+.logo-sol { width: 28px; height: 28px; border-radius: 50%; background: var(--grad); }
+
+.papel-picado { position: absolute; inset: 0 0 auto 0; height: 90px; pointer-events: none; }
+.papel-defs { position: absolute; }
+.papel-cordel { position: absolute; top: 4px; left: 0; width: 100%; height: 12px; }
+.papel-cordel path { fill: none; stroke: var(--cordel); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.papel-banderas {
+  list-style: none; margin: 0; padding: 0 0.5rem; position: absolute; top: 6px; left: 0; right: 0;
+  display: flex; justify-content: center; gap: 4px;
+}
+.bandera { flex: none; width: clamp(40px, 3.6vw, 54px); transform-origin: 50% 0; animation: mecer 4.5s ease-in-out var(--retraso, 0s) infinite alternate; }
+.bandera svg { display: block; width: 100%; height: auto; overflow: visible; }
+.bandera-negra path { fill: var(--bandera-a); }
+.bandera-negra .pliegue { fill: var(--bandera-a-pliegue); }
+.bandera-blanca path { fill: var(--bandera-b); stroke: var(--bandera-b-borde); stroke-width: 0.9; }
+.bandera-blanca svg { filter: var(--bandera-b-sombra); }
+.bandera-blanca .pliegue { fill: var(--bandera-b); stroke: var(--bandera-b-borde); stroke-width: 0.6; }
+@keyframes mecer { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
+
+/* ===== Portada ===== */
+.portada {
+  position: relative; max-width: var(--ancho); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(1.5rem, 4vw, 4rem); align-items: center;
+  padding: 4.5rem clamp(1rem, 4vw, 2.5rem) 5rem;
+}
+@media (max-width: 920px) { .portada { grid-template-columns: 1fr; padding-top: 3rem; } }
+.deco { position: absolute; border-radius: 0 0 var(--r) var(--r); pointer-events: none; }
+.deco-arriba { top: 0; left: 40%; width: 29%; height: 46px; background: linear-gradient(90deg, var(--deco-ini), var(--acento)); }
+.deco-abajo { bottom: 0; right: clamp(1rem, 4vw, 2.5rem); width: 46%; height: 30px; border-radius: var(--r) var(--r) 0 0; background: linear-gradient(90deg, var(--deco-ini-2), var(--acento)); }
+
+.portada-panel {
+  position: relative; aspect-ratio: 1 / 1.05; border-radius: 0 var(--r) var(--r) 0;
+  background: var(--grad); margin-left: calc(-1 * clamp(1rem, 4vw, 2.5rem));
+  display: flex; align-items: center; justify-content: flex-end;
+}
+@media (max-width: 920px) { .portada-panel { max-width: 560px; } }
+.puntos { position: absolute; left: 1.6rem; display: grid; grid-template-columns: repeat(3, 10px); gap: 22px 28px; }
+.puntos:first-child { top: 2rem; }
+.puntos:last-child { bottom: 2rem; }
+.puntos i { width: 10px; height: 10px; border-radius: 50%; background: var(--sobre-acento); opacity: 0.9; }
+/* ----- Planeta → Oaxaca ----- */
+.globo { position: relative; width: 88%; aspect-ratio: 1; margin-right: -14%; z-index: 1; }
+/* Durante el zoom el planeta se recorta al círculo, como una lente */
+.globo { clip-path: circle(75% at 50% 50%); transition: clip-path 0.5s ease; }
+.globo[data-fase="zoom"] { clip-path: circle(50% at 50% 50%); }
+.globo[data-fase="oaxaca"] { clip-path: none; }
+
+.planeta {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  filter: drop-shadow(0 30px 40px rgba(16, 25, 17, 0.35));
+  transform-origin: 50% 50%; opacity: 0; will-change: transform, opacity;
+}
+.globo[data-fase="girando"] .planeta { animation: planeta-girar 3s cubic-bezier(0.22, 0.75, 0.25, 1) forwards; }
+.globo[data-fase="zoom"] .planeta { transform-origin: 30% 57%; animation: planeta-zoom 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards; }
+.globo[data-fase="oaxaca"] .planeta { visibility: hidden; }
+
+.globo-mapa {
+  position: absolute; inset: 0; border-radius: 50%; overflow: hidden; opacity: 0;
+  transform-origin: 30% 57%;
+  box-shadow: 0 30px 60px rgba(16, 25, 17, 0.35), 0 0 0 10px var(--anillo);
+}
+.globo[data-fase="zoom"] .globo-mapa { animation: mapa-entrar 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s forwards; }
+.globo[data-fase="oaxaca"] .globo-mapa { opacity: 1; }
+
+.globo-repetir {
+  position: absolute; right: 6%; bottom: 6%; z-index: 2;
+  width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--superficie); color: var(--acento-fuerte); font-size: 1.3rem; font-weight: 800;
+  box-shadow: 0 6px 16px rgba(16, 25, 17, 0.25); transition: transform 0.2s;
+}
+.globo-repetir:hover { transform: rotate(-90deg); }
+
+@keyframes planeta-girar {
+  0% { opacity: 0; transform: rotate(-540deg) scale(0.45); }
+  20% { opacity: 1; }
+  100% { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+@keyframes planeta-zoom {
+  0% { opacity: 1; transform: scale(1); filter: blur(0) drop-shadow(0 30px 40px rgba(16, 25, 17, 0.35)); }
+  60% { opacity: 1; }
+  100% { opacity: 0; transform: scale(7); filter: blur(8px); }
+}
+@keyframes mapa-entrar {
+  0% { opacity: 0; transform: scale(0.2); filter: blur(10px); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+/* ----- Mapa de Oaxaca ----- */
+.mapa { position: absolute; inset: 0; }
+.mapa svg { width: 100%; height: 100%; display: block; }
+.mapa-reticula line { stroke: #fff; stroke-width: 0.15; opacity: 0.12; }
+.mapa-halo path { fill: none; stroke: #fff; stroke-linejoin: round; opacity: 0.07; }
+.mapa-mar, .mapa-vecino { fill: #fff; font-family: inherit; font-size: 2.6px; letter-spacing: 0.3px; }
+.mapa-mar { opacity: 0.55; font-style: italic; }
+.mapa-c1 { stop-color: var(--mapa-c1); }
+.mapa-c2 { stop-color: var(--mapa-c2); }
+.mapa-c3 { stop-color: var(--mapa-c3); }
+.mapa-e1 { stop-color: var(--mapa-e1); }
+.mapa-e2 { stop-color: var(--mapa-e2); }
+.mapa-punto { fill: var(--mapa-punto); }
+.mapa-vecino { opacity: 0.35; text-transform: uppercase; font-size: 2.1px; letter-spacing: 0.6px; }
+.mapa-estado { fill: url(#mapa-estado); fill-opacity: 0; stroke: #fff; stroke-width: 0.5; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.mapa-estado-textura { fill: url(#mapa-bosque); opacity: 0; pointer-events: none; }
+.mapa-valles { fill: var(--mapa-valles-bg); stroke: var(--mapa-marca); stroke-width: 0.45; stroke-dasharray: 1.2 0.8; opacity: 0; }
+.mapa-pin { opacity: 0; }
+.pin-punto { fill: var(--mapa-marca); stroke: #fff; stroke-width: 0.6; }
+.pin-onda { fill: none; stroke: var(--mapa-marca); stroke-width: 0.4; transform-box: fill-box; transform-origin: center; }
+.mapa-barrido {
+  position: absolute; inset: 0; border-radius: 50%; opacity: 0; pointer-events: none;
+  background: conic-gradient(from 0deg, rgba(255, 255, 255, 0.35), transparent 22%);
+}
+.mapa-etiqueta {
+  position: absolute; display: flex; flex-direction: column; gap: 0.05rem;
+  background: var(--superficie); color: var(--tinta); border-radius: 12px; padding: 0.45rem 0.8rem;
+  box-shadow: 0 8px 20px rgba(16, 25, 17, 0.25); font-size: clamp(0.65rem, 1.1vw, 0.85rem); line-height: 1.25;
+  white-space: nowrap; opacity: 0; pointer-events: none;
+}
+.mapa-etiqueta b { font-size: 1.1em; color: var(--acento-fuerte); }
+.mapa-etiqueta span { color: var(--suave); }
+.mapa-etiqueta-valles { background: var(--acento-fuerte); padding: 0.3rem 0.7rem; }
+.mapa-etiqueta-valles span { color: var(--sobre-acento); font-weight: 600; }
+
+/* Coreografía al llegar a Oaxaca */
+.globo[data-fase="oaxaca"] .mapa-barrido { animation: barrido 1.6s ease-out 0.1s; }
+.globo[data-fase="oaxaca"] .mapa-estado { animation: trazar 1.3s ease-out 0.1s forwards, rellenar 0.6s ease-out 1.1s forwards; }
+.globo[data-fase="oaxaca"] .mapa-estado-textura { animation: aparecer 0.6s ease-out 1.3s forwards; }
+.globo[data-fase="oaxaca"] .mapa-valles { animation: aparecer 0.5s ease-out 1.7s forwards; }
+.globo[data-fase="oaxaca"] .mapa-pin { animation: caer 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) 2s forwards; }
+.globo[data-fase="oaxaca"] .pin-onda { animation: onda 2.2s ease-out 2.4s infinite; }
+.globo[data-fase="oaxaca"] .pin-onda-2 { animation-delay: 3.5s; }
+.globo[data-fase="oaxaca"] .mapa-etiqueta { animation: deslizar 0.5s ease-out 2.4s forwards; }
+.globo[data-fase="oaxaca"] .mapa-etiqueta-valles { animation-delay: 2.7s; }
+
+@keyframes trazar { to { stroke-dashoffset: 0; } }
+@keyframes rellenar { to { fill-opacity: 1; } }
+@keyframes aparecer { to { opacity: 1; } }
+@keyframes barrido { 0% { opacity: 1; transform: rotate(0deg); } 100% { opacity: 0; transform: rotate(360deg); } }
+@keyframes caer { 0% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 1; transform: none; } }
+@keyframes onda { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(4.5); opacity: 0; } }
+@keyframes deslizar { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: none; } }
+
+/* Sin animaciones: mostrar el estado final del mapa */
+@media (prefers-reduced-motion: reduce) {
+  .globo .planeta { visibility: hidden; }
+  .globo .globo-mapa, .mapa-estado-textura, .mapa-valles, .mapa-pin, .mapa-etiqueta { opacity: 1; }
+  .mapa-estado { stroke-dashoffset: 0; fill-opacity: 1; }
+}
+
+.portada-texto { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; padding-left: clamp(0rem, 3vw, 2rem); }
+.pildora {
+  align-self: flex-end; background: var(--grad); color: var(--sobre-acento); font-size: 1rem;
+  padding: 0.7rem 1.8rem; border-radius: 999px; letter-spacing: 0.01em;
+}
+@media (max-width: 920px) { .pildora { align-self: flex-start; } }
+.portada-esfera { position: absolute; left: clamp(0rem, 3vw, 2rem); top: 0.4rem; width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--acento-bg), var(--acento)); }
+.antetitulo { font-size: clamp(1.3rem, 2.2vw, 1.9rem); font-weight: 800; margin-top: 1.5rem; }
+.portada h1 {
+  font-size: clamp(3.4rem, 8.5vw, 7rem); font-weight: 800; line-height: 0.98;
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.portada-desc { font-size: 1.15rem; color: var(--suave); max-width: 40ch; }
+.portada-datos { list-style: none; margin: 0.3rem 0; padding: 0; display: flex; gap: 1.5rem 2.2rem; flex-wrap: wrap; font-size: 1.1rem; }
+.portada-datos li { display: flex; align-items: center; gap: 0.75rem; }
+.icono-circulo { width: 44px; height: 44px; border-radius: 50%; background: var(--grad); color: var(--sobre-acento); display: grid; place-items: center; font-weight: 800; font-size: 1.1rem; }
+
+/* ===== Secciones ===== */
+main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem) 3rem; }
+.seccion { margin-top: 3.5rem; scroll-margin-top: 5rem; }
+.seccion-cab { display: flex; gap: 1.2rem; align-items: center; margin-bottom: 1.8rem; }
+.seccion-num {
+  flex: none; width: 56px; height: 56px; border-radius: 50%; background: var(--grad); color: var(--sobre-acento);
+  display: grid; place-items: center; font-weight: 800; font-size: 1.1rem;
+}
+.seccion-cab h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); font-weight: 800; color: var(--acento-fuerte); }
+.seccion-cab p { color: var(--suave); margin-top: 0.25rem; }
+.subtitulo { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--acento); font-weight: 800; margin-bottom: 0.8rem; }
+
+/* ===== Botones ===== */
+.btn { display: inline-block; border: 0; border-radius: 999px; padding: 0.8rem 1.7rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: filter 0.15s, transform 0.05s, box-shadow 0.15s; }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-verde, .btn-calor { background: var(--grad); color: var(--sobre-acento); box-shadow: 0 8px 20px var(--sombra); }
+.btn-verde:hover, .btn-calor:hover:not(:disabled) { filter: brightness(1.1); }
+.btn-borde { background: var(--superficie); color: var(--acento-fuerte); border: 2px solid var(--acento); }
+.btn-borde:hover { background: var(--acento-bg); }
+
+/* Tarjeta base */
+.respuesta, .zona, .campo-pregunta, .visor, .foto-drop, .selector select {
+  background: var(--superficie); border: 1px solid var(--linea);
+  box-shadow: 0 10px 30px var(--sombra);
+}
+
+/* ===== Diagnóstico ===== */
+.diag-grid { display: grid; grid-template-columns: minmax(320px, 1fr) minmax(340px, 1fr); gap: 2rem; align-items: start; }
+@media (max-width: 920px) { .diag-grid { grid-template-columns: 1fr; } }
+
+.visor-wrap { margin: 0; position: sticky; top: 5rem; }
+.visor { position: relative; aspect-ratio: 1; border-radius: var(--r); overflow: hidden; }
+.visor-vacio { display: grid; place-items: center; text-align: center; padding: 2rem; color: var(--tenue); aspect-ratio: 1; border-radius: var(--r); background: var(--acento-bg); }
+.visor .visor-vacio { height: 100%; border-radius: 0; }
+.capa-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.capa-veg { clip-path: inset(0 0 0 var(--corte)); }
+.divisor { position: absolute; top: 0; bottom: 0; left: var(--corte); width: 3px; background: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); transform: translateX(-1.5px); pointer-events: none; }
+.etiqueta-capa { position: absolute; top: 0.9rem; padding: 0.3rem 0.8rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; background: var(--etiqueta-capa-bg); pointer-events: none; }
+.etiqueta-capa.izq { left: 0.9rem; color: var(--calor); }
+.etiqueta-capa.der { right: 0.9rem; color: var(--acento-fuerte); }
+
+.marcador {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 3px solid var(--superficie); background: var(--acento-fuerte); color: var(--sobre-acento); font-weight: 800; cursor: pointer;
+  animation: pulso 2s infinite; transition: transform 0.15s;
+}
+.marcador.activo { transform: translate(-50%, -50%) scale(1.3); background: var(--superficie); color: var(--acento-fuerte); border-color: var(--acento-fuerte); }
+
+.visor-controles { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+.visor-controles input[type="range"] { flex: 1 1 160px; accent-color: var(--acento); height: 28px; }
+.modos { display: flex; background: var(--acento-bg); border-radius: 999px; padding: 4px; }
+.modo { border: 0; background: transparent; padding: 0.4rem 0.9rem; border-radius: 999px; cursor: pointer; font-size: 0.85rem; color: var(--suave); font-weight: 600; }
+.modo.activo { background: var(--grad); color: var(--sobre-acento); }
+.leyendas { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; margin-top: 0.9rem; font-size: 0.85rem; color: var(--suave); align-items: center; }
+.leyendas span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.escala { width: 56px; height: 9px; border-radius: 5px; display: inline-block; }
+.escala-calor { background: linear-gradient(90deg, #7cb342, #fbc02d, #ef6c00, #b71c1c); }
+.escala-veg { background: linear-gradient(90deg, #d7ccc8, #c5e1a5, #43a047, #1b5e20); }
+.fecha { margin-left: auto; color: var(--tenue); }
+
+.diag-panel { display: flex; flex-direction: column; gap: 1.2rem; }
+.campo-pregunta { display: flex; gap: 0.6rem; border-radius: 999px; padding: 0.45rem 0.45rem 0.45rem 1rem; }
+.campo-pregunta:focus-within { border-color: var(--acento); }
+.campo-pregunta input { flex: 1; min-width: 0; background: transparent; border: 0; padding: 0.4rem 0.2rem; font-size: 1.05rem; }
+.campo-pregunta input:focus { outline: none; }
+.campo-pregunta input::placeholder { color: var(--tenue); }
+.sugeridas { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 0.9rem; }
+.sugerida {
+  display: flex; align-items: center; gap: 0.8rem; text-align: left;
+  background: var(--superficie); border: 1px solid var(--linea); border-radius: 999px;
+  padding: 0.45rem 1.1rem 0.45rem 0.45rem; cursor: pointer; color: var(--tinta);
+  transition: border-color 0.15s, background 0.15s;
+}
+.sugerida::before { content: "→"; width: 34px; height: 34px; flex: none; border-radius: 50%; background: var(--grad); color: var(--sobre-acento); display: grid; place-items: center; font-weight: 800; }
+.sugerida:hover:not(:disabled) { border-color: var(--acento); background: var(--acento-bg); }
+.sugerida:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.pista-vacia { color: var(--suave); background: var(--acento-bg); border-radius: var(--r); padding: 1.2rem 1.4rem; }
+
+.cargando { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.4rem; border-radius: var(--r); background: var(--acento-bg); font-weight: 600; color: var(--acento-fuerte); }
+.radar { width: 34px; height: 34px; flex: none; border-radius: 50%; border: 3px solid var(--radar-pista); border-top-color: var(--acento-fuerte); animation: girar 0.9s linear infinite; }
+
+.error { padding: 1.2rem 1.4rem; border-radius: var(--r); background: var(--malo-bg); border: 1px solid var(--error-borde); color: var(--error-txt); display: flex; flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+
+.respuesta { border-radius: var(--r); padding: 1.6rem; display: flex; flex-direction: column; gap: 1.2rem; }
+.respuesta-cab { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.respuesta-cab .subtitulo { margin: 0; }
+.pregunta-hecha { color: var(--suave); font-style: italic; }
+.resumen { font-size: 1.2rem; line-height: 1.5; border-left: 4px solid var(--acento); padding-left: 1rem; }
+
+.badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 999px; white-space: nowrap; }
+.badge-vivo { background: var(--bueno-bg); color: var(--bueno); }
+.badge-vivo .punto { background: var(--bueno); animation: latido 1.5s infinite; }
+.badge-cache { background: var(--cache-bg); color: var(--suave); }
+
+.linea ol { list-style: none; margin: 0; padding: 0; }
+.paso { display: flex; gap: 0.9rem; position: relative; padding-bottom: 1.1rem; }
+.paso:not(:last-child)::before { content: ""; position: absolute; left: 19px; top: 42px; bottom: 4px; width: 2px; background: var(--linea); }
+.paso-icono { width: 40px; height: 40px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 1rem; color: #fff; }
+.paso-vision .paso-icono { background: linear-gradient(135deg, var(--calor-2), var(--calor)); }
+.paso-herramienta .paso-icono { background: linear-gradient(135deg, #6aa7e0, var(--cielo)); }
+.paso-sintesis .paso-icono { background: var(--grad); }
+.paso-tipo { font-weight: 800; font-size: 0.95rem; }
+.paso-tipo span { font-weight: 500; color: var(--tenue); }
+.paso p { color: var(--suave); margin-top: 0.15rem; }
+
+.zonas-bloque { margin-top: 2.2rem; }
+.zonas { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+.zona { border-radius: var(--r); padding: 1.4rem; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; outline: none; }
+.zona.activa, .zona:focus-visible { border-color: var(--acento); transform: translateY(-3px); box-shadow: 0 16px 36px var(--sombra); }
+.zona header { display: flex; align-items: center; gap: 0.75rem; }
+.zona h4 { font-size: 1.3rem; color: var(--acento-fuerte); }
+.zona-num { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--grad); color: var(--sobre-acento); font-weight: 800; flex: none; }
+.zona-datos { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 1rem 0; }
+.zona-datos div { background: var(--calor-bg); border-radius: var(--r-s); padding: 0.75rem 0.95rem; display: flex; flex-direction: column; }
+.zona-datos b { font-size: 1.75rem; color: var(--calor); line-height: 1.1; }
+.zona-datos span { font-size: 0.8rem; color: var(--suave); }
+.zona-causa, .zona-accion { display: flex; flex-direction: column; gap: 0.2rem; margin-top: 0.7rem; color: var(--suave); }
+.zona-causa span, .zona-accion span, .relacion span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 800; color: var(--tenue); }
+.zona-accion { background: var(--acento-bg); border-radius: var(--r-s); padding: 0.75rem 0.95rem; color: var(--tinta); }
+.zona-accion span { color: var(--acento); }
+
+/* ===== Mi calle ===== */
+.calle-grid { display: grid; grid-template-columns: minmax(280px, 1fr) 1.4fr; gap: 2rem; align-items: start; }
+@media (max-width: 920px) { .calle-grid { grid-template-columns: 1fr; } }
+.calle-entrada { display: flex; flex-direction: column; gap: 1rem; }
+.foto-drop { display: block; position: relative; aspect-ratio: 4 / 3; border-radius: var(--r); overflow: hidden; cursor: pointer; border: 2px dashed var(--acento); background: var(--acento-bg); box-shadow: none; transition: background 0.15s; }
+.foto-drop:hover, .foto-drop:focus-within { background: var(--acento-bg-2); }
+.foto-drop.con-foto { border-style: solid; border-color: var(--linea); }
+.foto-drop input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.foto-drop img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.foto-vacia { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.7rem; color: var(--acento-fuerte); font-weight: 700; }
+.foto-icono { width: 64px; height: 64px; border-radius: 50%; background: var(--grad); color: var(--sobre-acento); display: grid; place-items: center; font-size: 1.7rem; }
+.cambiar { font-size: 0.8rem; color: var(--tenue); text-align: center; margin-top: -0.5rem; }
+.selector { display: flex; flex-direction: column; gap: 0.4rem; font-weight: 700; font-size: 0.95rem; }
+.selector select { border-radius: var(--r-s); padding: 0.75rem; box-shadow: none; }
+.selector small { color: var(--tenue); font-weight: 400; }
+
+.indicadores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+@media (max-width: 520px) { .indicadores { grid-template-columns: 1fr; } }
+.indicador { border-radius: var(--r-s); padding: 0.9rem 1rem; display: flex; flex-direction: column; }
+.indicador-lbl { font-size: 0.8rem; color: var(--suave); font-weight: 600; }
+.indicador-val { font-size: 1.6rem; font-weight: 800; text-transform: capitalize; }
+.tono-malo { background: var(--malo-bg); }
+.tono-malo .indicador-val { color: var(--malo); }
+.tono-regular { background: var(--regular-bg); }
+.tono-regular .indicador-val { color: var(--regular); }
+.tono-bueno { background: var(--bueno-bg); }
+.tono-bueno .indicador-val { color: var(--bueno); }
+
+.superficies { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; color: var(--suave); }
+.etiqueta { background: var(--acento-bg); border-radius: 999px; padding: 0.2rem 0.8rem; color: var(--acento-fuerte); font-size: 0.9rem; font-weight: 600; }
+.recomendaciones { margin: 0; padding: 0; list-style: none; counter-reset: rec; display: flex; flex-direction: column; gap: 0.7rem; }
+.recomendaciones li { counter-increment: rec; display: flex; gap: 0.8rem; align-items: flex-start; }
+.recomendaciones li::before { content: counter(rec); width: 30px; height: 30px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--grad); color: var(--sobre-acento); font-weight: 800; font-size: 0.9rem; }
+.relacion { display: flex; flex-direction: column; gap: 0.3rem; background: var(--cielo-bg); border-radius: var(--r-s); padding: 0.95rem 1.1rem; color: var(--suave); }
+.relacion span { color: var(--cielo); }
+
+.pie { text-align: center; color: var(--tenue); font-size: 0.85rem; padding: 2rem 1rem; border-top: 1px solid var(--linea); margin-top: 3rem; background: var(--superficie); }
+
+/* ===== Animaciones ===== */
+@keyframes girar { to { transform: rotate(360deg); } }
+@keyframes latido { 50% { opacity: 0.4; } }
+@keyframes pulso {
+  0% { box-shadow: 0 0 0 0 rgba(var(--pulso-rgb), 0.55); }
+  70% { box-shadow: 0 0 0 14px rgba(var(--pulso-rgb), 0); }
+  100% { box-shadow: 0 0 0 0 rgba(var(--pulso-rgb), 0); }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }

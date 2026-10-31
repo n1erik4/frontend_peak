@@ -1,0 +1,6 @@
+{
+  "temperatura_url": "/mock/lst.svg",
+  "vegetacion_url": "/mock/ndvi.svg",
+  "bbox": [-97.1, 16.6, -96.3, 17.4],
+  "fecha": "2025-04-15"
+}
